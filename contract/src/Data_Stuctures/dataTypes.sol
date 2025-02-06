@@ -1,6 +1,5 @@
 //SPDX-Lisence-Identifier:MIT
-Pragma solidity 0.8.28;
-
+pragma solidity 0.8.28;
 library DataTypes{
 
 struct Userparam{

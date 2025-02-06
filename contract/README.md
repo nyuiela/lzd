@@ -51,169 +51,7 @@ Distribute rewards – Prize money (in crypto) should be automatically sent to t
 Allow public competition creation – Any user should be able to create a competition.
 
 /////
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
 
-contract DevCompetition {
-    struct Competition {
-        address creator;
-        string name;
-        string description;
-        uint256 prize;
-        bool isActive;
-        address winner;
-    }
-
-    struct Submission {
-        address participant;
-        string solutionHash; // IPFS or hash of the solution
-    }
-
-    mapping(uint256 => Competition) public competitions;
-    mapping(uint256 => Submission[]) public submissions;
-    uint256 public competitionCount;
-
-    event CompetitionCreated(uint256 indexed compId, address indexed creator, uint256 prize);
-    event SubmissionMade(uint256 indexed compId, address indexed participant);
-    event WinnerDeclared(uint256 indexed compId, address indexed winner);
-
-    /// @notice Creates a new competition
-    function createCompetition(string memory _name, string memory _description) external payable {
-        require(msg.value > 0, "Prize must be greater than zero");
-
-        competitions[competitionCount] = Competition({
-            creator: msg.sender,
-            name: _name,
-            description: _description,
-            prize: msg.value,
-            isActive: true,
-            winner: address(0)
-        });
-
-        emit CompetitionCreated(competitionCount, msg.sender, msg.value);
-        competitionCount++;
-    }
-
-    /// @notice Submits a solution to a competition
-    function submitSolution(uint256 _compId, string memory _solutionHash) external {
-        require(competitions[_compId].isActive, "Competition not active");
-
-        submissions[_compId].push(Submission({
-            participant: msg.sender,
-            solutionHash: _solutionHash
-        }));
-
-        emit SubmissionMade(_compId, msg.sender);
-    }
-
-    /// @notice Declares a winner and transfers the prize
-    function declareWinner(uint256 _compId, address _winner) external {
-        Competition storage comp = competitions[_compId];
-
-        require(msg.sender == comp.creator, "Only creator can declare winner");
-        require(comp.isActive, "Competition already closed");
-        require(comp.winner == address(0), "Winner already declared");
-
-        comp.winner = _winner;
-        comp.isActive = false;
-        payable(_winner).transfer(comp.prize);
-
-        emit WinnerDeclared(_compId, _winner);
-    }
-}
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
-
-contract DevCompetitionFactory {
-    struct Competition {
-        uint256 templateId; // Links to the base competition
-        address creator;
-        string name;
-        string description;
-        uint256 prize;
-        bool isActive;
-        address winner;
-    }
-
-    struct Submission {
-        address participant;
-        string solutionHash;
-    }
-
-    struct Template {
-        string name;
-        string description;
-    }
-
-    Template[] public templates;
-    mapping(uint256 => Competition[]) public competitionsByTemplate;
-    mapping(uint256 => Submission[]) public submissions;
-    
-    event TemplateCreated(uint256 templateId, string name);
-    event CompetitionCreated(uint256 indexed templateId, uint256 indexed compId, address creator, uint256 prize);
-    event SubmissionMade(uint256 indexed compId, address participant);
-    event WinnerDeclared(uint256 indexed compId, address winner);
-
-    /// @notice Creates a new competition template
-    function createTemplate(string memory _name, string memory _description) external {
-        templates.push(Template({
-            name: _name,
-            description: _description
-        }));
-
-        emit TemplateCreated(templates.length - 1, _name);
-    }
-
-    /// @notice Clones a competition from a template
-    function createCompetitionFromTemplate(uint256 _templateId) external payable {
-        require(_templateId < templates.length, "Invalid template");
-        require(msg.value > 0, "Prize must be greater than zero");
-
-        competitionsByTemplate[_templateId].push(Competition({
-            templateId: _templateId,
-            creator: msg.sender,
-            name: templates[_templateId].name,
-            description: templates[_templateId].description,
-            prize: msg.value,
-            isActive: true,
-            winner: address(0)
-        }));
-
-        uint256 compId = competitionsByTemplate[_templateId].length - 1;
-        emit CompetitionCreated(_templateId, compId, msg.sender, msg.value);
-    }
-
-    /// @notice Submits a solution to a competition
-    function submitSolution(uint256 _templateId, uint256 _compId, string memory _solutionHash) external {
-        require(_templateId < templates.length, "Invalid template");
-        require(_compId < competitionsByTemplate[_templateId].length, "Invalid competition");
-        require(competitionsByTemplate[_templateId][_compId].isActive, "Competition not active");
-
-        submissions[_compId].push(Submission({
-            participant: msg.sender,
-            solutionHash: _solutionHash
-        }));
-
-        emit SubmissionMade(_compId, msg.sender);
-    }
-
-    /// @notice Declares a winner and transfers the prize
-    function declareWinner(uint256 _templateId, uint256 _compId, address _winner) external {
-        require(_templateId < templates.length, "Invalid template");
-        require(_compId < competitionsByTemplate[_templateId].length, "Invalid competition");
-
-        Competition storage comp = competitionsByTemplate[_templateId][_compId];
-        require(msg.sender == comp.creator, "Only creator can declare winner");
-        require(comp.isActive, "Competition already closed");
-        require(comp.winner == address(0), "Winner already declared");
-
-        comp.winner = _winner;
-        comp.isActive = false;
-        payable(_winner).transfer(comp.prize);
-
-        emit WinnerDeclared(_compId, _winner);
-    }
-}
 
 ### thinking
 - we should have like a place where devs can see all the open-source projects and the rewards for participating in them
@@ -229,6 +67,15 @@ contract DevCompetitionFactory {
 
 
 ### research
-- how is the competition logic going to ?
+- how is the competition logic going to ? 
 - game implementation ( dealing with hwo the user will play the game) is it code based ? will he run codes?
-- how to store the game logic? bytes32? if so. 
+- how to store the game logic? bytes32? if so.
+
+###  
+
+## user connect
+How the user will connect his github (CI/CD) to the project;
+access token -> api.github.com ( gets the user pull, push request) -> imports data or commit proof into contract
+this allows the contributionXp, automatedXp, projectSpecificXp to proof or automate user contribution and mints xptokens.
+uses oracle to fetch (api.github.com) data into smart contract.
+

@@ -9,10 +9,19 @@ library ClaimLogic{
 
 // function competitionXp() internal{} // 
 
+// function challengeXp() internal{}
+
 // function contributionXp() internal {} // check workflow --workflow rewardbased
 
-// function projectSpecificXp() internal {}
+// function projectSpecificXp() internal {} // company / individual wants contribution and pay with with your own xp/erc20/nft
 
 // function creationXp internal {} // xp increase, nft 
 
 }
+
+/// reason in for clone
+// so each competion / chanllenge can be deployed
+// lets say like ctf smart -- deployed -- contract dee
+
+// com/ca
+// address of the challenge ????

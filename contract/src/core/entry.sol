@@ -14,7 +14,7 @@ contract Entry {
       // ERC721MANAGER - manages all the erc721 tokens for our platform.
       constructor (addresss xpTokenAddr,address NFTManagerAddr) {
          xpToken = IERC20(xpTokenAddr);
-         nftManager = NFTManager(NFTManagerAddr);ß
+         nftManager = NFTManager(NFTManagerAddr);
       }
 
     mapping(address => uint256) public xp;
@@ -25,7 +25,13 @@ contract Entry {
     }
  
     function createCompetition() /*onlyOwner? */ {} // fcfm, cfm // fcfm --- cfm -- clone (not expensive)
-    function claimXp() {}
+    function claimXp() {
+      // param: selctor
+      // function handle().selector 
+      // cliamLogic.changexp.selctor
+      // uint256 amount = 
+      xp[msg.sender] += amount;
+    }
 
     function createProposal() {} // company / individual must meet requirement.
     // requirement: min xp requirement or approved Company
