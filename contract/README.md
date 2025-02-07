@@ -1,5 +1,4 @@
 ### LazyDev
-Got it! You want a template-based competition system where users can initialize a base competition, and others can "clone" it to create their own version.
 
 How It Works
 Admin or anyone initializes a base competition template.
