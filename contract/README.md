@@ -79,3 +79,6 @@ access token -> api.github.com ( gets the user pull, push request) -> imports da
 this allows the contributionXp, automatedXp, projectSpecificXp to proof or automate user contribution and mints xptokens.
 uses oracle to fetch (api.github.com) data into smart contract.
 
+## TOdo
+- CREATING PROFILE
+- Create proposal
