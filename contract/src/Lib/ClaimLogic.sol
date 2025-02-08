@@ -1,22 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
-library ClaimLogic{
+library ClaimLogic {
+    modifier onlyAutomater() {
+        // only the automater can access
+        _;
+    }
 
-// logic for claiming , all internal function needed
+    function automatedXp() external onlyAutomater {}
 
-// function automatedXp() internal{} onlyAutomater //pull, push request,
+    // logic for claiming , all internal function needed
 
-// function competitionXp() internal{} // 
+    // function automatedXp() internal{} onlyAutomater //pull, push request,
 
-// function challengeXp() internal{}
+    // function competitionXp() internal{} //
 
-// function contributionXp() internal {} // check workflow --workflow rewardbased
+    // function challengeXp() internal{}
 
-// function projectSpecificXp() internal {} // company / individual wants contribution and pay with with your own xp/erc20/nft
+    // function contributionXp() internal {} // check workflow --workflow rewardbased
 
-// function creationXp internal {} // xp increase, nft 
+    // function projectSpecificXp() internal {} // company / individual wants contribution and pay with with your own xp/erc20/nft
 
+    // function creationXp internal {} // xp increase, nft
 }
 
 /// reason in for clone
