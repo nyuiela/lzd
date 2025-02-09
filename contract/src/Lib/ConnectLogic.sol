@@ -7,10 +7,9 @@ import "../interface/IChallengeImpl.sol";
 /// @notice Explain to an end user what this does
 /// @dev Explain to a developer any extra details
 contract ConnectLogic {
-    //bool solved ;
     address public startConnectAddress;
-    IChallengeImplementation startChallenge;
-    uint256 duration = 3 days;
+    IChallengeImplementation private startChallenge;
+    uint256 public duration = 3 days;
 
     struct Userparam {
         address user;
@@ -41,17 +40,10 @@ contract ConnectLogic {
         usernameExists[_username] = true;
     }
 
-    function getProfile(
-        address _user
-    ) external view returns (Userparam memory) {
+    function getProfile(address _user) public view returns (Userparam memory) {
         return profile[_user];
     }
 
-    //    address creator;
-    //   string name;
-    //   string description;
-    //   uint256 score; //xp going to be added
-    //   string category;
     function startConnectChallenge()
         internal
         returns (address, string memory, string memory, uint256, string memory)
@@ -69,6 +61,10 @@ contract ConnectLogic {
 
     function setConnectChallenge(address gameAddress) external /* onlyOwner */ {
         startConnectAddress = gameAddress;
+    }
+
+    function setDuration(uint256 _date) external /* onlyOwner */ {
+        duration = _date;
     }
 
     //  function setStartChallange() public {

@@ -74,6 +74,8 @@ contract ChallengeImplementation {
                 solved: true
             });
 
+            //  xp[msg.sender] += score;
+
             //rewardWinner
             return true;
         } else {

@@ -15,11 +15,11 @@ library ClaimLogic {
 
     // function competitionXp() internal{} //
 
-    // function challengeXp() internal{}
+    // function challengeXp() internal {}
 
-    // function contributionXp() internal {} // check workflow --workflow rewardbased
+    function contributionXp() internal {} // check workflow --workflow rewardbased
 
-    // function projectSpecificXp() internal {} // company / individual wants contribution and pay with with your own xp/erc20/nft
+    function projectSpecificXp() internal {} // company / individual wants contribution and pay with with your own xp/erc20/nft
 
     // function creationXp internal {} // xp increase, nft
 }
