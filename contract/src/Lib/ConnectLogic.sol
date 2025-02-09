@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
+import "../interface/IChallengeImpl.sol";
 
 /// @title A title that should describe the contract/interface
 /// @author The name of the author
@@ -7,6 +8,9 @@ pragma solidity 0.8.28;
 /// @dev Explain to a developer any extra details
 contract ConnectLogic {
     //bool solved ;
+    address public startConnectAddress;
+    IChallengeImplementation startChallenge;
+    uint256 duration = 3 days;
 
     struct Userparam {
         address user;
@@ -17,6 +21,12 @@ contract ConnectLogic {
     mapping(string => bool) usernameExists;
     mapping(address => Userparam) public profile;
     mapping(address => bool) public solvedConnectChallenge;
+
+    mapping(address => uint256) public startChaDeadline;
+
+    constructor() {
+        startChallenge = IChallengeImplementation(startConnectAddress);
+    }
 
     function _connect(string memory _username) internal {
         require(
@@ -37,9 +47,28 @@ contract ConnectLogic {
         return profile[_user];
     }
 
-    function startConnectChallenge(address gameAddress) internal {
-        //start the game, connect user to the challenge.
-        //   xp[msg.sender] += 300;
+    //    address creator;
+    //   string name;
+    //   string description;
+    //   uint256 score; //xp going to be added
+    //   string category;
+    function startConnectChallenge()
+        internal
+        returns (address, string memory, string memory, uint256, string memory)
+    {
+        //   start the game, connect user to the challenge.
+        //  xp[msg.sender] += 300;
+        require(
+            startChaDeadline[msg.sender] != 0 &&
+                block.timestamp >= startChaDeadline[msg.sender],
+            "Hello world"
+        );
+        startChaDeadline[msg.sender] = block.timestamp + duration;
+        return startChallenge.challenge();
+    }
+
+    function setConnectChallenge(address gameAddress) external /* onlyOwner */ {
+        startConnectAddress = gameAddress;
     }
 
     //  function setStartChallange() public {

@@ -38,10 +38,12 @@ contract ChallengeImplementation {
         owner = _owner;
     }
 
-    function createChallenge(string memory _name, string memory _description, uint256 _score, string memory _category)
-        external
-        returns (uint256)
-    {
+    function createChallenge(
+        string memory _name,
+        string memory _description,
+        uint256 _score,
+        string memory _category
+    ) external returns (uint256) {
         // msg.sender must meet requirement to create challenge.
 
         challenge = ChallengeParams({
@@ -67,12 +69,18 @@ contract ChallengeImplementation {
         Submission storage userSub = submission[msg.sender];
         require(userSub.solved == false, "challenge Already solved");
         if (solution == submission[msg.sender].solutionHash) {
-            submission[msg.sender] = Submission({solutionHash: _solutionHash, solved: true});
+            submission[msg.sender] = Submission({
+                solutionHash: _solutionHash,
+                solved: true
+            });
 
             //rewardWinner
             return true;
         } else {
-            submission[msg.sender] = Submission({solutionHash: _solutionHash, solved: false});
+            submission[msg.sender] = Submission({
+                solutionHash: _solutionHash,
+                solved: false
+            });
         }
 
         return false;
