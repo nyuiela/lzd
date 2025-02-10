@@ -81,3 +81,25 @@ uses oracle to fetch (api.github.com) data into smart contract.
 ## TOdo
 - CREATING PROFILE
 - Create proposal
+
+
+### what we havent done
+
+## ZKTLS
+
+## contribution workflow
+
+## teamwork
+
+### LAzyDEv
+
+- dashboard contract(dashboard to want devs based on xp and nft and prize wins)
+- DAO contract (contract for devs to vote for changes and make the protocol better)
+- /proof of work contract (contract to reward contribution and PR based on quality/workflow)
+- TOken contract
+- NFT contract
+- challenge contract(time-less challenge devs can play , anyone can create these, rwards in xp for solving)
+- competition contract(contract to allow devs with a leve of xp to create time-based competions with usdc rewards prizes to 1st to 3rd winners)
+- proposal contract (where open source agencies can request for contributors)
+- reward contract (rewards devs with xp and nft based on chanllenge,competition and contribution/PR)
+- Collaborative Milestone Rewards contract(rewards based on team contribution)
