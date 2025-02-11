@@ -5,6 +5,7 @@ import "../Data_Structures/dataTypes.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./CreationFactory.sol";
 import "../Lib/ConnectLogic.sol";
+import "../Lib/ClaimLogic.sol";
 
 interface NFTManager {
     function addNFT() external;
@@ -16,6 +17,7 @@ contract Entry is ConnectLogic {
     IERC20 public xpToken;
     NFTManager public nftManager;
     CreationFactory factory;
+    ClaimLogic claim;
 
     //  uint256 public connectReward;
 
@@ -80,12 +82,19 @@ contract Entry is ConnectLogic {
         factory.cloneChallenge(msg.sender);
     }
 
-    function claimXp() public {
+    function claimXp(bytes calldata _selector, uint256 _value) public {
+        // if(_selector == claim.chanllenge.selctor){}
+        //if()
+        //  = claim._competition.selector();
+        (bool success, ) = address(claim).call(_selector);
+        require(success, "ClaimLogic__Claim_failed");
+        //   revert 0;
+
         // param: selctor
         // function handle().selector
         // cliamLogic.changexp.selctor
         // uint256 amount =
-        xp[msg.sender] += 300; //amount
+        xp[msg.sender] += _value; //amount
     }
 
     // automate this function to get userXp from automateXp, projectXp etc etc.

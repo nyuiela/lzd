@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
-library ClaimLogic {
+contract ClaimLogic {
     modifier onlyAutomater() {
         // only the automater can access
         _;
