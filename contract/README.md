@@ -110,3 +110,8 @@ users to prove their income or creditworthiness without revealing their full fin
 - proposal contract (where open source agencies can request for contributors)
 - reward contract (rewards devs with xp and nft based on chanllenge,competition and contribution/PR)
 - Collaborative Milestone Rewards contract(rewards based on team contribution)
+
+-----LAZYDEV-----
+- a dao
+- layerzero 
+- 
