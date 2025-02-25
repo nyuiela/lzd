@@ -112,6 +112,33 @@ users to prove their income or creditworthiness without revealing their full fin
 - Collaborative Milestone Rewards contract(rewards based on team contribution)
 
 -----LAZYDEV-----
+
 - a dao
-- layerzero 
-- 
+- layerzero
+
+method
+competition/challennge -> submitFlag() -> entry.addToUserXP(30) onlyChallenge/onlyCompetition;
+
+### Todo
+
+## Kaleel part (meanieeeeeeeee)
+
+-- ZKTLS -- connect()
+verifying user -> userprofile -> validate userprofile (token(jwk -- random value)) ->
+
+## Lee part -------------------------------------------------------------------------------
+
+-- workflow ----- connect --- github --- contr --- workflow --- zk --- award(proposal)
+contribution H, M, L, I
+github...
+workflow to know which cat youre on?
+-- a structure we check for each cat
+--- high ----
+--- med ---
+--- low ---
+-- informational---
+award ----
+ranks H, M, L , I
+
+--award -- proposal(winning xp, some actual money )
+validate(solution)

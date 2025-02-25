@@ -42,16 +42,21 @@ contract CreationFactory is Ownable {
         return (newChallenge, _id);
     }
 
-    function lookUpCompetition(uint256 _id) public view returns (address) {
-        address comp = competitions[_id];
-        return comp;
+    function lookUpCompetition(uint256 _id) public view returns (address comp) {
+        comp = competitions[_id];
     }
 
-    function lookUpChallenge(uint256 _id) public view returns (address) {
-        address chal = challenges[_id];
-        return chal;
+    function lookUpChallenge(uint256 _id) public view returns (address chal) {
+        chal = challenges[_id];
     }
 
+    // function getChallengeDetails()
+    //   public
+    // view
+    //returns (challenge.ChallegeParams memory)
+    // {
+    //challenge.ChallengeParams memory _challenge = challenge.getChallengeDetails();
+    // }
     // function InitialiseCompetition() internal {}
 
     // strcture the competition question for

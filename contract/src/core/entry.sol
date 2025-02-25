@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./CreationFactory.sol";
 import "../Lib/ConnectLogic.sol";
 import "../Lib/ClaimLogic.sol";
+import "./challenge.sol";
+import "./competition.sol";
 
 interface NFTManager {
     function addNFT() external;
@@ -19,9 +21,12 @@ contract Entry is ConnectLogic {
     CreationFactory factory;
     ClaimLogic claim;
 
+    DataTypes.Userparam public userparam;
+
     //  uint256 public connectReward;
 
     // ERC721MANAGER - manages all the erc721 tokens for our platform.
+
     constructor(
         address xpTokenAddr,
         address NFTManagerAddr,
@@ -97,6 +102,14 @@ contract Entry is ConnectLogic {
         xp[msg.sender] += _value; //amount
     }
 
+    function addToUserXP(address _user, uint256 amount) public {
+        //   require(
+        //       msg.sender == challenge || competition,
+        //       "Entry__Invalid_caller"
+        //   );
+        xp[_user] += amount;
+    }
+
     // automate this function to get userXp from automateXp, projectXp etc etc.
 
     //  function createProposal() public {} // company / individual must meet requirement.
@@ -105,5 +118,9 @@ contract Entry is ConnectLogic {
 
     function _claimXp(uint256 amount) internal {
         xp[msg.sender] += amount;
+    }
+
+    function getuserAmount() public view returns (uint256) {
+        return xp[msg.sender];
     }
 }

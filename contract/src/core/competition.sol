@@ -2,11 +2,16 @@
 pragma solidity 0.8.28;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {Entry} from "./entry.sol";
+import {LD} from "../core/LD.sol";
 
 contract CompetitionImplementation {
     IERC20 public usdc;
+    LD public xpToken;
+
     uint256 id;
     address owner;
+    Entry entry;
 
     constructor(address usdcAddr) {
         usdc = IERC20(usdcAddr);
@@ -17,6 +22,7 @@ contract CompetitionImplementation {
         string name;
         string description;
         uint256[] prize; //
+        uint256 score;
         uint256 startTime;
         uint256 stopTime; //duration / deadline
         string category;
@@ -61,6 +67,7 @@ contract CompetitionImplementation {
         string memory _name,
         string memory _description,
         uint256[] memory _prize,
+        uint256 _score,
         uint256 _startTime,
         uint256 _stopTime,
         string memory _category
@@ -75,6 +82,7 @@ contract CompetitionImplementation {
             name: _name,
             description: _description,
             prize: _prize,
+            score: _score,
             //   _isActive, // remove?
             startTime: _startTime,
             stopTime: _stopTime,
@@ -105,8 +113,7 @@ contract CompetitionImplementation {
         uint256 _competitionId,
         bytes32 _solutionHash
     ) external returns (bool) {
-        //   CompetitionParams storage competition = CompetitionParams[_competitionId];
-
+        address _user = msg.sender;
         /// xp rewarding right?????
         Submission memory userSub = submission[msg.sender];
         if (solution == userSub.solutionHash) {
@@ -115,6 +122,9 @@ contract CompetitionImplementation {
                 solved: true
             });
             //claim xp
+            entry.addToUserXP(_user, competition.score);
+
+            xpToken.transferFrom(address(this), msg.sender, competition.score);
 
             //rewardWinner
             return true;
