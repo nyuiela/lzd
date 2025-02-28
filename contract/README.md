@@ -142,3 +142,8 @@ ranks H, M, L , I
 
 --award -- proposal(winning xp, some actual money )
 validate(solution)
+
+
+### zktls && workflow
+
+ 
