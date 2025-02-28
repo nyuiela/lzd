@@ -10,7 +10,7 @@ IERC20 vaLit;
 address owner;
     constructor(uint256 _amountTomint/*, address _owner*/) ERC20("vaLiT", "VT") {
         owner = msg.sender;
-        _mint(address(owner), _amountTomint); // um change it 
+        _mint(address(this), _amountTomint); // um change it 
     }
 
 
@@ -28,18 +28,31 @@ address owner;
  struct ValidatorParam{
     string feedback;
     bool isVald;
+    uint60 time;
+    bool isactiveValidator;
+    uint256 reward;
+    uint256 penalty;
+    uint256 numberOFContributorvalidated
  }
 
  mapping(address => ValidatorParam) public validationInfo;
-
+validators[] _validators;
 
  bool activeValidation;
+ bool isvalidator;
 
-    function addValidator() external{}
+    function addValidator(address _validator) external{
+      require(_validator != address(0));
+      _validators.push(_validator);
+      isvalidator = true;
+
+    }
     function hasBeenValidated(uint256 _contributionHash) public view returns(bool) {}
 
 //anyone can remove validator if they have no rewards, cannot remove if theyre actively validating a contribution
-    function removeVAlidator() external {}
+    function removeVAlidator(address _validator) external {
+     
+    }
 
 
 // zktls proof the validator work
