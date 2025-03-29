@@ -6,7 +6,9 @@ import "./proposalContract.sol";
 contract Contribution {
     uint256 private ciD;
     Proposal private proposal;
-
+    constructor(address _proposal) {
+        proposal = Proposal(_proposal);
+    }
     struct ContributorPara {
         string uri;
         string feedback;

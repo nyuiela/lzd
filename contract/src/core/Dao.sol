@@ -16,8 +16,10 @@ contract Dao is ERC20 {
 
     mapping(address => userMintInfo) public userToPowerInfo;
 
-    constructor(uint256 _duration) ERC20("LDGov", "LDG") {
+    constructor(uint256 _duration, address _entry, address _xpToken) ERC20("LDGov", "LDG") {
         votingDuration = _duration;
+        entry = Entry(_entry);
+        xpToken = LD(_xpToken);
     }
 
     struct userMintInfo {
