@@ -17,6 +17,8 @@ contract Proposal {
     mapping(uint256 => mapping(address => bool)) private approved;
     uint256 public proposalId;
 
+    mapping(address => uint256 => bool) private _isContributor;
+
     event ProposalCreated(uint256 id, address owner, uint256 deadline);
     event ProposalAccepted(uint256 id, address accepter);
     event ApprovalSet(uint256 id, address contributor);
@@ -55,6 +57,7 @@ contract Proposal {
         //check if address has minXP to join
 
         approved[_id][_contributor] = true;
+        _isContributor[_contributor][_id] = true;
         emit ApprovalSet(_id, _contributor);
     }
 
@@ -66,6 +69,7 @@ contract Proposal {
         );
         for (uint256 i = 0; i < _contributors.length; i++) {
             approved[_id][_contributors[i]] = true;
+             _isContributor[_contributor][_id] = true;
         }
     }
 
@@ -100,6 +104,23 @@ contract Proposal {
         }
     }
 
+function getProposalInfo(uint256 _id) public view returns(ProposalParam memory){
+     ProposalParam storage proposal = proposals[_id];
+     return(Proposal.details, proposal.uri, proposal.isPrivate, proposal.rewardPool,proposal.contributors, proposal.deadline);
+}
+    function joinProposal(uint256 _id) external {
+         ProposalParam storage proposal = proposals[_id];
+         require(!proposal.isPrivate, "ProposalContract__cant_join_privateProposals");
+          require(
+            block.timestamp <= proposal.deadline,
+            "ProposalContract_Deadline_Passed"
+        );
+        approved[_id][_contributor] = true;
+         _isContributor[_contributor][_id] = true;
+        emit Joined(_id, _contributor);
+    }
+    event Joined(uint256 id, address indexed con);
+
     function acceptProposal(uint256 _id) public {
         ProposalParam storage proposal = proposals[_id];
         require(!proposal.accepted[msg.sender], "Already accepted");
@@ -111,9 +132,17 @@ contract Proposal {
         for (uint256 i; i < proposal.contributors.length; i++) {
             if (proposal.contributors[i] == msg.sender) {
                 proposal.accepted[msg.sender] = true;
+                 _isContributor[msg.sender][_id] = true;
             }
         }
     }
+    function isContributor(uint256 _id) public view returns(bool){
+         ProposalParam storage proposal = proposals[_id];
+         // _isContributor[msg.sender][_id] = true;
+          return _isContributor[msg.sender][_id];
+
+    }
+
 
     //  function addContributor(uint256 _id, uint256 _contributor) external {
     //      ProposalParam storage proposal = proposals[_id];
