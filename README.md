@@ -1,5 +1,9 @@
 # 🧑‍💻 LazyDev – Gamified Open Source Contributions with Real Rewards
 
+```
+https://zenode.netlify.app/
+```
+
 **LazyDev** is a platform that transforms open-source contributions into daily challenges, rewarding developers with **USDC** and **LZD tokens**. Whether you're just getting started or you're a seasoned contributor, LazyDev helps you **learn, build, and earn** while making a real impact in open-source.
 
 ---
