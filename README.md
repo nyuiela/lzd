@@ -90,7 +90,7 @@ Want to improve LazyDev or submit a project for challenges? We welcome contribut
 
 ---
 
-## 📬 Contact
+
 
 For questions, partnerships, or feedback: [your contact link here]
 
